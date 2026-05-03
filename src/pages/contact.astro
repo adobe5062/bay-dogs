@@ -1,123 +1,30 @@
 ---
-import Base from '@layouts/Base.astro';
+import Base from '../layouts/Base.astro';
 ---
 
-<Base title="Contact" description="Book a free consultation with Bay Dogs Training in Maryland. Call or use the contact form.">
-  <section class="bg-cream pt-16 pb-12 px-6 border-b border-tan/20">
-    <div class="max-w-5xl mx-auto">
-      <p class="text-earthy-green font-semibold text-sm uppercase tracking-widest mb-3">Get in Touch</p>
-      <h1 class="font-serif text-4xl font-semibold text-charcoal">Book a free consultation.</h1>
-    </div>
-  </section>
-
-  <section class="py-20 px-6">
-    <div class="max-w-5xl mx-auto grid md:grid-cols-2 gap-16">
-      <!-- Form -->
-      <div>
-        <h2 class="font-serif text-2xl font-semibold text-charcoal mb-2">Send a message</h2>
-        <p class="text-charcoal/60 mb-8">Tell Lauren about your dog and what you're hoping to work on. She'll get back to you promptly.</p>
-
-        <form name="contact" method="POST" data-netlify="true" class="space-y-5">
-          <input type="hidden" name="form-name" value="contact" />
-
-          <div>
-            <label for="name" class="block text-sm font-medium text-charcoal mb-1.5">Your name</label>
-            <input
-              type="text"
-              id="name"
-              name="name"
-              required
-              placeholder="Jane Smith"
-              class="w-full border border-tan/40 rounded px-4 py-2.5 text-charcoal bg-white focus:outline-none focus:ring-2 focus:ring-earthy-green/30 focus:border-earthy-green"
-            />
-          </div>
-
-          <div>
-            <label for="email" class="block text-sm font-medium text-charcoal mb-1.5">Your email</label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              required
-              placeholder="jane@example.com"
-              class="w-full border border-tan/40 rounded px-4 py-2.5 text-charcoal bg-white focus:outline-none focus:ring-2 focus:ring-earthy-green/30 focus:border-earthy-green"
-            />
-          </div>
-
-          <div>
-            <label for="dog" class="block text-sm font-medium text-charcoal mb-1.5">Your dog's name</label>
-            <input
-              type="text"
-              id="dog"
-              name="dog"
-              placeholder="Buddy"
-              class="w-full border border-tan/40 rounded px-4 py-2.5 text-charcoal bg-white focus:outline-none focus:ring-2 focus:ring-earthy-green/30 focus:border-earthy-green"
-            />
-          </div>
-
-          <div>
-            <label for="message" class="block text-sm font-medium text-charcoal mb-1.5">Tell me about your dog</label>
-            <textarea
-              id="message"
-              name="message"
-              rows="5"
-              placeholder="What are you hoping to work on? Any behavioral concerns?"
-              class="w-full border border-tan/40 rounded px-4 py-2.5 text-charcoal bg-white focus:outline-none focus:ring-2 focus:ring-earthy-green/30 focus:border-earthy-green resize-none"
-            ></textarea>
-          </div>
-
-          <button
-            type="submit"
-            class="w-full bg-earthy-green text-cream font-semibold py-3 rounded hover:bg-earthy-green-dark transition-colors"
-          >
-            Send Message
-          </button>
-        </form>
-      </div>
-
-      <!-- Contact Info -->
-      <div class="space-y-8">
-        <div>
-          <h2 class="font-serif text-2xl font-semibold text-charcoal mb-6">Other ways to reach Lauren</h2>
-          <div class="space-y-4 text-charcoal/75">
-            <div class="flex gap-3">
-              <svg class="w-5 h-5 text-earthy-green flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-              </svg>
-              <div>
-                <p class="font-medium text-charcoal">Email</p>
-                <a href="mailto:lauren@baydogstraining.com" class="text-earthy-green hover:underline">lauren@baydogstraining.com</a>
-              </div>
-            </div>
-            <div class="flex gap-3">
-              <svg class="w-5 h-5 text-earthy-green flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-              </svg>
-              <div>
-                <p class="font-medium text-charcoal">Location</p>
-                <p>Maryland</p>
-              </div>
-            </div>
-            <div class="flex gap-3">
-              <svg class="w-5 h-5 text-earthy-green flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
-              </svg>
-              <div>
-                <p class="font-medium text-charcoal">Facebook</p>
-                <a href="https://www.facebook.com/101004679563468" target="_blank" rel="noopener noreferrer" class="text-earthy-green hover:underline">Bay Dogs Dog Training</a>
-              </div>
-            </div>
-          </div>
+<Base title="Contact">
+  <div style="padding-top:108px;min-height:100vh;background:#faf8f4;">
+    <div style="max-width:900px;margin:0 auto;padding:80px 40px;">
+      <p style="font-family:Montserrat,sans-serif;font-weight:700;font-size:11px;letter-spacing:2.5px;text-transform:uppercase;color:#f7941d;margin-bottom:12px;">Contact</p>
+      <h1 style="font-family:Montserrat,sans-serif;font-weight:800;font-size:clamp(32px,5vw,56px);color:#0d1b2a;margin-bottom:40px;">Get in touch.</h1>
+      <form name="contact" method="POST" data-netlify="true" style="max-width:520px;">
+        <input type="hidden" name="form-name" value="contact" />
+        <div style="margin-bottom:18px;">
+          <label style="display:block;font-family:Montserrat,sans-serif;font-weight:600;font-size:12px;color:#0d1b2a;margin-bottom:6px;">Your Name</label>
+          <input type="text" name="name" required style="width:100%;padding:12px 16px;border-radius:10px;border:1.5px solid #e0ddd8;font-size:14px;outline:none;" />
         </div>
-
-        <div class="bg-white rounded-lg p-6 border border-tan/20">
-          <h3 class="font-serif text-lg font-semibold text-charcoal mb-3">Free Consultation</h3>
-          <p class="text-charcoal/70 leading-relaxed">
-            Not sure which program is right for your dog? Lauren offers a free initial consultation — no pressure, no obligation. Just a conversation about your dog and your goals.
-          </p>
+        <div style="margin-bottom:18px;">
+          <label style="display:block;font-family:Montserrat,sans-serif;font-weight:600;font-size:12px;color:#0d1b2a;margin-bottom:6px;">Email</label>
+          <input type="email" name="email" required style="width:100%;padding:12px 16px;border-radius:10px;border:1.5px solid #e0ddd8;font-size:14px;outline:none;" />
         </div>
-      </div>
+        <div style="margin-bottom:24px;">
+          <label style="display:block;font-family:Montserrat,sans-serif;font-weight:600;font-size:12px;color:#0d1b2a;margin-bottom:6px;">Message</label>
+          <textarea name="message" rows="4" style="width:100%;padding:12px 16px;border-radius:10px;border:1.5px solid #e0ddd8;font-size:14px;outline:none;resize:vertical;"></textarea>
+        </div>
+        <button type="submit" style="padding:14px 32px;background:#f7941d;color:#fff;border:none;border-radius:10px;font-family:Montserrat,sans-serif;font-weight:700;font-size:13px;letter-spacing:1px;text-transform:uppercase;cursor:pointer;">
+          Send Message
+        </button>
+      </form>
     </div>
-  </section>
+  </div>
 </Base>

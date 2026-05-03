@@ -1,90 +1,13 @@
 ---
-import Base from '@layouts/Base.astro';
-
-const credentials = [
-  { label: 'Experience', value: '15+ years training dogs and owners across Maryland' },
-  { label: 'IACP', value: 'Member — International Association of Canine Professionals' },
-  { label: 'AKC', value: 'Approved Canine Good Citizen (CGC) Evaluator' },
-  { label: 'Education', value: 'Wrote curriculum and taught Canine Body Language & Pet Therapy Training at Anne Arundel Community College' },
-  { label: 'Rare Achievement', value: 'One of only two people to certify a Presa Canario as a therapy dog through Pet Partners' },
-];
+import Base from '../layouts/Base.astro';
 ---
 
-<Base title="About" description="Meet Lauren Dobelbower — professional dog trainer with 15+ years experience in Maryland.">
-  <!-- Page Header -->
-  <section class="bg-cream pt-16 pb-12 px-6 border-b border-tan/20">
-    <div class="max-w-5xl mx-auto">
-      <p class="text-earthy-green font-semibold text-sm uppercase tracking-widest mb-3">About Lauren</p>
-      <h1 class="font-serif text-4xl font-semibold text-charcoal">Meet your trainer.</h1>
+<Base title="About">
+  <div style="padding-top:108px;min-height:100vh;background:#faf8f4;">
+    <div style="max-width:900px;margin:0 auto;padding:80px 40px;">
+      <p style="font-family:Montserrat,sans-serif;font-weight:700;font-size:11px;letter-spacing:2.5px;text-transform:uppercase;color:#f7941d;margin-bottom:12px;">About</p>
+      <h1 style="font-family:Montserrat,sans-serif;font-weight:800;font-size:clamp(32px,5vw,56px);color:#0d1b2a;margin-bottom:40px;">Meet your trainer.</h1>
+      <p style="font-size:16px;line-height:1.8;color:#555;">[Trainer bio content goes here]</p>
     </div>
-  </section>
-
-  <!-- Bio -->
-  <section class="py-20 px-6">
-    <div class="max-w-5xl mx-auto grid md:grid-cols-2 gap-16 items-start">
-      <div class="rounded-2xl overflow-hidden bg-tan/20 aspect-[3/4] flex items-center justify-center">
-        <p class="text-charcoal/40 text-sm">Lauren's photo here</p>
-      </div>
-      <div>
-        <h2 class="font-serif text-2xl font-semibold text-charcoal mb-6">Lauren Dobelbower</h2>
-        <div class="prose prose-stone max-w-none text-charcoal/75 leading-relaxed space-y-4">
-          <p>
-            Lauren has been working with dogs and their owners for over 15 years. In that time, she's helped thousands of families across Maryland build the kind of relationship with their dog that most people only dream about.
-          </p>
-          <p>
-            Her approach is built on communication, not dominance. She helps you understand what your dog is telling you — and helps your dog understand what you need. The result is a calmer, more confident dog and a more connected relationship.
-          </p>
-          <p>
-            Lauren is a member of the International Association of Canine Professionals (IACP) and an approved American Kennel Club Canine Good Citizen (CGC) Evaluator. She's taught college-level courses on Canine Body Language and Pet Therapy Training at Anne Arundel Community College.
-          </p>
-          <p>
-            Her dog Vinny — a Presa Canario, one of the most powerful breeds in the world — became one of only two Presa Canarios ever certified as a therapy dog through Pet Partners. That accomplishment speaks to what's possible when training is built on trust.
-          </p>
-          <p>
-            Outside of training, Lauren enjoys wildlife photography, astrophotography, and hiking. She currently shares her home with Gizmo, a mixed-breed rescue with a big personality.
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Credentials -->
-  <section class="bg-white py-20 px-6">
-    <div class="max-w-5xl mx-auto">
-      <div class="text-center mb-12">
-        <p class="text-earthy-green font-semibold text-sm uppercase tracking-widest mb-3">Credentials</p>
-        <h2 class="font-serif text-3xl font-semibold text-charcoal">Qualified to help your dog.</h2>
-      </div>
-      <div class="grid md:grid-cols-2 gap-6 max-w-3xl mx-auto">
-        {credentials.map(({ label, value }) => (
-          <div class="bg-cream rounded-lg p-6 border border-tan/20">
-            <p class="text-earthy-green font-semibold text-sm uppercase tracking-wide mb-2">{label}</p>
-            <p class="text-charcoal/80 leading-relaxed">{value}</p>
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <!-- Philosophy -->
-  <section class="py-20 px-6">
-    <div class="max-w-3xl mx-auto text-center">
-      <p class="text-earthy-green font-semibold text-sm uppercase tracking-widest mb-4">Philosophy</p>
-      <blockquote class="font-serif text-2xl md:text-3xl text-charcoal leading-relaxed">
-        "Every dog is trainable. Every relationship can improve. You just need someone who understands both ends of the leash."
-      </blockquote>
-      <p class="mt-8 text-charcoal/60">— Lauren Dobelbower</p>
-    </div>
-  </section>
-
-  <!-- CTA -->
-  <section class="bg-earthy-green text-cream py-16 px-6">
-    <div class="max-w-2xl mx-auto text-center">
-      <h2 class="font-serif text-2xl font-semibold mb-4">Ready to work with Lauren?</h2>
-      <p class="text-cream/80 mb-8">Book a free consultation — just a conversation about your dog and what you're hoping to achieve.</p>
-      <a href="/contact" class="bg-cream text-earthy-green font-semibold px-8 py-3 rounded hover:bg-tan transition-colors inline-block">
-        Book Free Consultation
-      </a>
-    </div>
-  </section>
+  </div>
 </Base>

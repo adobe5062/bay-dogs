@@ -129,12 +129,12 @@ const creds = ['IACP Member', 'AKC CGC Evaluator', 'Anne Arundel CC Instructor',
     <div style="position:absolute;right:26%;bottom:25%;width:540px;height:540px;border-radius:50%;border:2px solid rgba(247,148,29,0.06);animation:waveFloat 6s ease-in-out infinite;animation-delay:0.8s;"></div>
 
     <!-- Right panel image -->
-    <div style="position:absolute;right:0;top:0;bottom:0;width:55%;">
+    <div class="hero-right-panel" style="position:absolute;right:0;top:0;bottom:0;width:55%;">
       <div style="width:100%;height:100%;background-image:url(https://images.unsplash.com/photo-1548199973-03cce0bbc87b?w=1200&auto=format&fit=crop);background-size:cover;background-position:center;clip-path:polygon(15% 0,100% 0,100% 100%,0% 100%);"></div>
     </div>
 
     <!-- Content -->
-    <div class="animate-fadeUp" style="position:relative;z-index:2;height:100%;display:flex;flex-direction:column;justify-content:center;padding-left:clamp(32px,8vw,120px);max-width:620px;">
+    <div class="animate-fadeUp hero-content" style="position:relative;z-index:2;height:100%;display:flex;flex-direction:column;justify-content:center;padding-left:clamp(32px,8vw,120px);max-width:620px;">
       <span style="display:inline-block;padding:4px 14px;border-radius:99px;background:#f7941d;color:#fff;font-family:Montserrat,sans-serif;font-weight:600;font-size:11px;letter-spacing:1px;text-transform:uppercase;">Dog Training • Maryland</span>
       <h1 style="font-family:Montserrat,sans-serif;font-weight:900;font-size:clamp(42px,6vw,76px);line-height:1.05;color:#fff;margin-top:20px;margin-bottom:20px;">
         Relationship<br/>coaching for<br/><span style="color:#f7941d;">you &amp; your dog.</span>
@@ -152,7 +152,7 @@ const creds = ['IACP Member', 'AKC CGC Evaluator', 'Anne Arundel CC Instructor',
       </div>
 
       <!-- Stats -->
-      <div style="display:flex;gap:40px;margin-top:52px;">
+      <div class="hero-stats" style="display:flex;gap:40px;margin-top:52px;">
         {[['15+','Years Experience'],['1,000+','Dogs Trained'],['100%','Owner Commitment']].map(([num, label]) => (
           <div>
             <div style="font-family:Montserrat,sans-serif;font-weight:800;font-size:28px;color:#f7941d;">{num}</div>
@@ -174,7 +174,7 @@ const creds = ['IACP Member', 'AKC CGC Evaluator', 'Anne Arundel CC Instructor',
   <!-- ══ ABOUT ══ -->
   <section id="about" style="background:#faf8f4;padding:100px 0;">
     <div style="max-width:1200px;margin:0 auto;padding:0 40px;">
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;">
+      <div class="grid-2" style="display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;">
         <div class="reveal-left">
           <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
             <div style="width:32px;height:3px;background:#f7941d;border-radius:2px;"></div>
@@ -203,7 +203,7 @@ const creds = ['IACP Member', 'AKC CGC Evaluator', 'Anne Arundel CC Instructor',
               15+<br/><span style="font-size:11px;font-weight:600;letter-spacing:1px;">YEARS EXP.</span>
             </div>
           </div>
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+          <div class="pillar-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
             {pillars.map((p) => (
               <div class="pillar-card" style="background:#fff;border-radius:14px;padding:20px;box-shadow:0 2px 16px rgba(0,0,0,0.06);border-top:3px solid #f7941d;transition:transform 0.2s;">
                 <div style="font-size:24px;margin-bottom:8px;">{p.icon}</div>
@@ -221,11 +221,11 @@ const creds = ['IACP Member', 'AKC CGC Evaluator', 'Anne Arundel CC Instructor',
   <section id="trainer" style="background:#0d1b2a;padding:100px 0;position:relative;overflow:hidden;">
     <div style="position:absolute;right:-120px;top:-120px;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(247,148,29,0.07) 0%,transparent 70%);pointer-events:none;"></div>
     <div style="max-width:1200px;margin:0 auto;padding:0 40px;">
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;">
+      <div class="grid-2" style="display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;">
         <div class="reveal-left" style="position:relative;">
           <div style="position:relative;">
             <img src="https://images.unsplash.com/photo-1601758124510-52d02ddb7cbd?w=800&auto=format&fit=crop&q=80" alt="Trainer with dog" style="width:100%;height:480px;object-fit:cover;object-position:top;border-radius:24px;display:block;" />
-            <div style="position:absolute;top:-16px;left:-16px;right:40px;bottom:40px;border-radius:28px;border:2px solid rgba(247,148,29,0.5);z-index:-1;"></div>
+            <div class="trainer-frame" style="position:absolute;top:-16px;left:-16px;right:40px;bottom:40px;border-radius:28px;border:2px solid rgba(247,148,29,0.5);z-index:-1;"></div>
           </div>
         </div>
         <div class="reveal-right">
@@ -267,7 +267,7 @@ const creds = ['IACP Member', 'AKC CGC Evaluator', 'Anne Arundel CC Instructor',
         <p style="font-size:16px;color:#666;margin-top:16px;max-width:480px;margin-left:auto;margin-right:auto;">At-home training options tailored to you and your dog's unique needs.</p>
       </div>
 
-      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:28px;align-items:start;">
+      <div class="grid-3" style="display:grid;grid-template-columns:repeat(3,1fr);gap:28px;align-items:start;">
         {services.map((s, i) => (
           <div class="reveal service-card" style={`transition-delay:${i*0.12}s;`}>
             <div style={`background:${s.accent ? '#0d1b2a' : '#fff'};border-radius:20px;overflow:hidden;box-shadow:0 4px 24px rgba(0,0,0,0.07);border:2px solid ${s.accent ? '#f7941d' : 'transparent'};transition:transform 0.35s ease,box-shadow 0.35s ease;`}>
@@ -349,7 +349,7 @@ const creds = ['IACP Member', 'AKC CGC Evaluator', 'Anne Arundel CC Instructor',
   <!-- ══ CONTACT ══ -->
   <section id="contact" style="background:#faf8f4;padding:100px 0;">
     <div style="max-width:1100px;margin:0 auto;padding:0 40px;">
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start;">
+      <div class="grid-2" style="display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start;">
         <!-- Left -->
         <div class="reveal-left">
           <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
@@ -425,6 +425,50 @@ const creds = ['IACP Member', 'AKC CGC Evaluator', 'Anne Arundel CC Instructor',
     </div>
     <a href="#" rel="noreferrer" style="width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,0.55);text-decoration:none;font-family:Montserrat,sans-serif;font-weight:800;font-size:14px;transition:all 0.2s;">f</a>
   </footer>
+
+<style>
+@media (max-width: 768px) {
+  /* Hero */
+  .hero-right-panel { display: none !important; }
+  .hero-content {
+    padding-left: 24px !important;
+    padding-right: 24px !important;
+    max-width: 100% !important;
+  }
+  .hero-stats { gap: 20px !important; flex-wrap: wrap !important; }
+
+  /* Grids → single column */
+  .grid-2 { grid-template-columns: 1fr !important; gap: 36px !important; }
+  .grid-3 { grid-template-columns: 1fr !important; gap: 20px !important; }
+  .pillar-grid { gap: 12px !important; }
+
+  /* Trainer accent frame causes overflow on mobile */
+  .trainer-frame { display: none !important; }
+
+  /* Testimonial panel */
+  #testimonial-panel {
+    grid-template-columns: 1fr !important;
+    padding: 32px 24px !important;
+    gap: 0 !important;
+  }
+  #testimonial-panel img { display: none !important; }
+
+  /* Section vertical padding */
+  #about, #trainer, #services, #testimonials, #contact {
+    padding: 60px 0 !important;
+  }
+
+  /* Section inner horizontal padding */
+  #about > div,
+  #trainer > div,
+  #services > div,
+  #testimonials > div,
+  #contact > div { padding-left: 20px !important; padding-right: 20px !important; }
+
+  /* Services section has two inner divs — target the grid wrapper */
+  #services > div > div:first-child { margin-bottom: 40px; }
+}
+</style>
 
 </Base>
 

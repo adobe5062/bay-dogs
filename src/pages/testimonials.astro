@@ -1,0 +1,57 @@
+---
+import Base from '@layouts/Base.astro';
+import TestimonialCard from '@components/TestimonialCard.astro';
+
+const testimonials = [
+  {
+    clientName: 'Felicity',
+    dogName: 'Penny — German Shepherd Puppy',
+    body: "Lauren's program completely transformed our relationship with Penny. I didn't think it was possible to feel this connected to my dog. Every walk is a joy now instead of a battle. Lauren's patience and knowledge are unlike anything we experienced before.",
+  },
+  {
+    clientName: 'Koda\'s Family',
+    dogName: 'Koda — 3 years old',
+    body: "Koda was protective and reactive when we came to Lauren. He had issues with other dogs and with strangers. After her program, he's a completely different dog — confident, calm, and a pleasure to be around. We're so grateful.",
+  },
+  {
+    clientName: 'Memphis\'s Owner',
+    dogName: 'Memphis — Puppy',
+    body: "Lauren's positive approach with Memphis made training feel natural, not forced. He picked everything up so quickly because he was enjoying the process. We couldn't be happier with the results.",
+  },
+  {
+    clientName: 'Chester\'s Owner',
+    dogName: 'Chester',
+    body: "Chester is becoming the angel I dreamt he'd be. Lauren's approach is unlike anything we tried before. She truly understands dogs and people — and she made the whole process feel manageable.",
+  },
+  {
+    clientName: 'Zera\'s Family',
+    dogName: 'Zera',
+    body: "Lauren was a breath of fresh air. After working with other trainers who made us feel hopeless, Lauren gave us real tools and real confidence. Zera is a different dog.",
+  },
+];
+---
+
+<Base title="Testimonials" description="Read what Bay Dogs Training clients have to say about working with Lauren Dobelbower.">
+  <section class="bg-cream pt-16 pb-12 px-6 border-b border-tan/20">
+    <div class="max-w-5xl mx-auto">
+      <p class="text-earthy-green font-semibold text-sm uppercase tracking-widest mb-3">Client Stories</p>
+      <h1 class="font-serif text-4xl font-semibold text-charcoal">What clients are saying.</h1>
+    </div>
+  </section>
+
+  <section class="py-20 px-6">
+    <div class="max-w-5xl mx-auto grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {testimonials.map((t) => <TestimonialCard {...t} />)}
+    </div>
+  </section>
+
+  <section class="bg-earthy-green text-cream py-16 px-6">
+    <div class="max-w-2xl mx-auto text-center">
+      <h2 class="font-serif text-2xl font-semibold mb-4">Your dog's story is next.</h2>
+      <p class="text-cream/80 mb-8">Book a free consultation and let's talk about what's possible.</p>
+      <a href="/contact" class="bg-cream text-earthy-green font-semibold px-8 py-3 rounded hover:bg-tan transition-colors inline-block">
+        Book Free Consultation
+      </a>
+    </div>
+  </section>
+</Base>

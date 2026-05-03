@@ -1,0 +1,1043 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Bay Dogs — Relationship Coaching for You and Your Dog</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&amp;family=Inter:wght@300;400;500;600&amp;family=Playfair+Display:wght@700;800;900&amp;family=Oswald:wght@500;600;700&amp;display=swap" rel="stylesheet"/>
+  <script type='text/javascript' nonce='PnelnlUK+3KWYyb8LIBJpA==' src='https://claude.ai/l5LRyNQexAjl5sgPJGp8QnTCXyFPZJcOmyIoh3d6RPN_kdLMPKMUavUFzuBKw6BukQ-SAJC3goThcUI34sMebKkY18XtekHFX__niYAGwMZd-4JsGVUo5OpJXVTtQLol8ODLZzPDrfwnOEdzdiMx85QtK6hIA4gohyfDPQGiQYmT2LX7Q7je8YgYKB4Zr9sQOwe1o-GZlulkqmRtArmK6KWVEWKsnbYS6CkFDLCh9lshWsBcXv-1N9jSZWG4F2bjW78ba1N7GsDVEdKWMWMijdCnQWX6DU74JfVj92HcwxES1z66ClAjj27pMzQjZI2dcaMrRZEGPH-ovRYPorfaBdKLgC13Ywx-IS-BO8kdAvXDJvOAO56N4YNGt0JP_xwIEboJAD9mwprC8Ft3sAaHvwCluQHF31hUp8rIOYYHTp7a4Nx5I1g7-Wat0_AVTzKnSAoGQOGRsCUvAy93AhMkLHzNo4gGpTf1xRLagopve6ma8YrrIKcVCdD5ueFWDJ2i0swFafL4rON7coM3Rqdfzw6JNDEAUn_OYe3HAbVurFekXHwfQgc_hI6CT7_h'></script><script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; background: #faf8f4; color: #1a1a1a; overflow-x: hidden; }
+
+    /* Animations */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(36px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+    @keyframes slideLeft {
+      from { opacity: 0; transform: translateX(40px); }
+      to   { opacity: 1; transform: translateX(0); }
+    }
+    @keyframes waveFloat {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50%       { transform: translateY(-8px) rotate(2deg); }
+    }
+    @keyframes bannerScroll {
+      0%   { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+    @keyframes pulseGlow {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(247,148,29,0.4); }
+      50%       { box-shadow: 0 0 0 12px rgba(247,148,29,0); }
+    }
+
+    .reveal { opacity: 0; transform: translateY(36px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-left { opacity: 0; transform: translateX(-36px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .reveal-left.visible { opacity: 1; transform: translateX(0); }
+    .reveal-right { opacity: 0; transform: translateX(36px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .reveal-right.visible { opacity: 1; transform: translateX(0); }
+
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: #0d1b2a; }
+    ::-webkit-scrollbar-thumb { background: #f7941d; border-radius: 3px; }
+  </style>
+</head>
+<body>
+<div id="root"></div>
+
+<script type="text/babel">
+const { useState, useEffect, useRef } = React;
+
+// ── Color tokens ──────────────────────────────────────────────
+const C = {
+  orange: '#f7941d',
+  orangeDark: '#e07d0a',
+  navy: '#0d1b2a',
+  navyMid: '#162334',
+  offWhite: '#faf8f4',
+  warm: '#fff8f0',
+};
+
+const HEADING_FONTS = {
+  montserrat: "'Montserrat', sans-serif",
+  playfair: "'Playfair Display', serif",
+  oswald: "'Oswald', sans-serif",
+};
+
+const ABOUT_BGS = {
+  offwhite: '#faf8f4',
+  orange: '#f7941d',
+  navy: '#0d1b2a',
+};
+
+// ── Tweaks defaults ───────────────────────────────────────────
+const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+  "accentColor": "#1d9ff7",
+  "darkNav": true,
+  "showBanner": true,
+  "heroStyle": "dark",
+  "buttonRadius": 10,
+  "fontStyle": "montserrat",
+  "aboutBg": "offwhite",
+  "statsVisible": true
+}/*EDITMODE-END*/;
+
+// ── Logo SVG ──────────────────────────────────────────────────
+function BayDogsLogo({ size = 44 }) {
+  return (
+    <svg width={size * 2.4} height={size} viewBox="0 0 110 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+      {/* Circle bg */}
+      <circle cx="22" cy="22" r="20" fill={C.navy} />
+      {/* Wave */}
+      <path d="M8 26 Q13 20 18 26 Q23 32 28 26 Q33 20 36 24" stroke="#2ec4e8" strokeWidth="2.5" strokeLinecap="round" fill="none"/>
+      <path d="M6 29 Q11 23 16 29 Q21 35 26 29 Q31 23 36 27" stroke="#1a9fc4" strokeWidth="1.5" strokeLinecap="round" fill="none" opacity="0.6"/>
+      {/* Sun */}
+      <circle cx="22" cy="13" r="6" fill={C.orange} />
+      <path d="M22 4 L22 7" stroke={C.orange} strokeWidth="1.5" strokeLinecap="round"/>
+      <path d="M31 13 L28 13" stroke={C.orange} strokeWidth="1.5" strokeLinecap="round"/>
+      <path d="M29 7 L27 9" stroke={C.orange} strokeWidth="1.5" strokeLinecap="round"/>
+      <path d="M15 7 L17 9" stroke={C.orange} strokeWidth="1.5" strokeLinecap="round"/>
+      {/* Text */}
+      <text x="48" y="17" fontFamily="Montserrat,sans-serif" fontWeight="800" fontSize="12" fill={C.navy} letterSpacing="2">BAY</text>
+      <text x="48" y="32" fontFamily="Montserrat,sans-serif" fontWeight="800" fontSize="12" fill={C.orange} letterSpacing="2">DOGS</text>
+    </svg>
+  );
+}
+
+// ── Reveal hook ───────────────────────────────────────────────
+function useReveal() {
+  useEffect(() => {
+    const els = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+    }, { threshold: 0.12 });
+    els.forEach(el => obs.observe(el));
+    return () => obs.disconnect();
+  });
+}
+
+// ── Pill badge ────────────────────────────────────────────────
+function Badge({ children, accent }) {
+  return (
+    <span style={{
+      display: 'inline-block', padding: '4px 14px', borderRadius: 99,
+      background: accent ? C.orange : 'rgba(247,148,29,0.12)',
+      color: accent ? '#fff' : C.orange,
+      fontFamily: 'Montserrat', fontWeight: 600, fontSize: 11, letterSpacing: 1,
+      textTransform: 'uppercase',
+    }}>{children}</span>
+  );
+}
+
+// ── Section label ─────────────────────────────────────────────
+function SectionLabel({ children }) {
+  return (
+    <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 16 }}>
+      <div style={{ width: 32, height: 3, background: C.orange, borderRadius: 2 }} />
+      <span style={{ fontFamily: 'Montserrat', fontWeight: 700, fontSize: 11, letterSpacing: 2.5, textTransform: 'uppercase', color: C.orange }}>{children}</span>
+    </div>
+  );
+}
+
+// ── Image placeholder ─────────────────────────────────────────
+function ImgPlaceholder({ label, w = '100%', h = 320, radius = 16, dark = false }) {
+  return (
+    <div style={{
+      width: w, height: h, borderRadius: radius,
+      background: dark ? 'repeating-linear-gradient(45deg,#1a2a3a,#1a2a3a 8px,#162030 8px,#162030 16px)'
+                       : 'repeating-linear-gradient(45deg,#e8e2d8,#e8e2d8 8px,#ddd7cc 8px,#ddd7cc 16px)',
+      display: 'flex', alignItems: 'center', justifyContent: 'center',
+      color: dark ? 'rgba(255,255,255,0.35)' : 'rgba(0,0,0,0.28)',
+      fontSize: 12, fontFamily: 'monospace', textAlign: 'center', padding: 20,
+      flexShrink: 0,
+    }}>{label}</div>
+  );
+}
+
+// ══════════════════════════════════════════════════
+// NAVBAR
+// ══════════════════════════════════════════════════
+function Navbar({ tweaks }) {
+  const [scrolled, setScrolled] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [active, setActive] = useState('home');
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 60);
+    window.addEventListener('scroll', onScroll);
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
+  const links = ['home','about','trainer','services','testimonials','contact'];
+  const labels = { home:'Home', about:'About', trainer:'Meet the Trainer', services:'Services', testimonials:'Testimonials', contact:'Contact' };
+
+  const scrollTo = (id) => {
+    setActive(id);
+    setMenuOpen(false);
+    const el = document.getElementById(id);
+    if (el) {
+      const top = el.getBoundingClientRect().top + window.scrollY - 72;
+      window.scrollTo({ top, behavior: 'smooth' });
+    }
+  };
+
+  const navBg = scrolled
+    ? C.navy
+    : 'linear-gradient(to bottom, rgba(13,27,42,0.75) 0%, rgba(13,27,42,0) 100%)';
+  const navShadow = scrolled ? '0 2px 24px rgba(0,0,0,0.3)' : 'none';
+
+  return (
+    <>
+    <nav style={{
+      position: 'fixed', top: tweaks.showBanner ? 40 : 0, left: 0, right: 0, zIndex: 1000,
+      background: navBg, boxShadow: navShadow,
+      transition: 'box-shadow 0.4s ease',
+      padding: '0 clamp(16px, 4vw, 40px)', height: 68, display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+    }}>
+      <div onClick={() => scrollTo('home')} style={{ cursor: 'pointer' }}>
+        <BayDogsLogo size={36} />
+      </div>
+
+      {/* Desktop links */}
+      <div className="nav-desktop" style={{ display: 'flex', gap: 4, alignItems: 'center' }}>
+        {links.map(id => (
+          <button key={id} onClick={() => scrollTo(id)} style={{
+            background: 'none', border: 'none', cursor: 'pointer', padding: '8px 14px',
+            fontFamily: 'Montserrat', fontWeight: 600, fontSize: 12, letterSpacing: 1.2,
+            textTransform: 'uppercase',
+            color: active === id ? tweaks.accentColor : 'rgba(255,255,255,0.85)',
+            borderBottom: active === id ? `2px solid ${tweaks.accentColor}` : '2px solid transparent',
+            transition: 'all 0.2s',
+          }}
+            onMouseEnter={e => { if (active !== id) e.currentTarget.style.color = '#fff'; }}
+            onMouseLeave={e => { if (active !== id) e.currentTarget.style.color = 'rgba(255,255,255,0.85)'; }}
+          >{labels[id]}</button>
+        ))}
+        <button onClick={() => scrollTo('contact')} style={{
+          marginLeft: 12, padding: '10px 22px', background: tweaks.accentColor, color: '#fff',
+          border: 'none', borderRadius: 8, fontFamily: 'Montserrat', fontWeight: 700, fontSize: 12,
+          letterSpacing: 1, textTransform: 'uppercase', cursor: 'pointer',
+          transition: 'all 0.2s', animation: 'pulseGlow 2.5s infinite',
+        }}
+          onMouseEnter={e => e.currentTarget.style.background = C.orangeDark}
+          onMouseLeave={e => e.currentTarget.style.background = tweaks.accentColor}
+        >Free Consult</button>
+      </div>
+
+      {/* Mobile hamburger */}
+      <button className="nav-mobile" onClick={() => setMenuOpen(o => !o)} style={{
+        background: 'none', border: 'none', cursor: 'pointer', padding: 8,
+        display: 'flex', flexDirection: 'column', gap: 5,
+      }}>
+        {[0,1,2].map(i => (
+          <div key={i} style={{
+            width: 24, height: 2.5, background: '#fff', borderRadius: 2,
+            transition: 'all 0.3s',
+            transform: menuOpen
+              ? i === 0 ? 'rotate(45deg) translate(5px, 5px)'
+              : i === 1 ? 'scaleX(0)'
+              : 'rotate(-45deg) translate(5px, -5px)'
+              : 'none',
+          }} />
+        ))}
+      </button>
+
+      {/* Mobile menu drawer */}
+      {menuOpen && (
+        <div style={{
+          position: 'fixed', top: tweaks.showBanner ? 108 : 68, left: 0, right: 0,
+          background: C.navy, padding: '16px 0 24px',
+          boxShadow: '0 8px 32px rgba(0,0,0,0.4)',
+          display: 'flex', flexDirection: 'column', alignItems: 'stretch',
+          zIndex: 999,
+        }}>
+          {links.map(id => (
+            <button key={id} onClick={() => scrollTo(id)} style={{
+              background: 'none', border: 'none', cursor: 'pointer',
+              padding: '14px 32px', textAlign: 'left',
+              fontFamily: 'Montserrat', fontWeight: 600, fontSize: 14, letterSpacing: 1,
+              textTransform: 'uppercase',
+              color: active === id ? tweaks.accentColor : 'rgba(255,255,255,0.8)',
+              borderLeft: active === id ? `3px solid ${tweaks.accentColor}` : '3px solid transparent',
+            }}>{labels[id]}</button>
+          ))}
+          <div style={{ padding: '8px 32px 0' }}>
+            <button onClick={() => scrollTo('contact')} style={{
+              width: '100%', padding: '14px', background: tweaks.accentColor, color: '#fff',
+              border: 'none', borderRadius: 8, fontFamily: 'Montserrat', fontWeight: 700,
+              fontSize: 13, letterSpacing: 1, textTransform: 'uppercase', cursor: 'pointer',
+            }}>Free Consultation</button>
+          </div>
+        </div>
+      )}
+    </nav>
+
+    <style>{`
+      @media (max-width: 768px) { .nav-desktop { display: none !important; } .nav-mobile { display: flex !important; } }
+      @media (min-width: 769px) { .nav-mobile { display: none !important; } }
+    `}</style>
+    </>
+  );
+}
+
+// ══════════════════════════════════════════════════
+// BANNER
+// ══════════════════════════════════════════════════
+function Banner({ tweaks }) {
+  if (!tweaks.showBanner) return null;
+  const msg = '✦ Visit the CONTACT page to set up a FREE phone consultation now!  ✦  Bay Dogs Dog Training — Anne Arundel County, MD  ✦  Over 15 years of experience  ';
+  return (
+    <div style={{
+      position: 'fixed', top: 0, left: 0, right: 0, zIndex: 1001,
+      background: tweaks.accentColor, height: 40, overflow: 'hidden',
+      display: 'flex', alignItems: 'center',
+    }}>
+      <div style={{
+        display: 'flex', whiteSpace: 'nowrap',
+        animation: 'bannerScroll 22s linear infinite',
+        fontFamily: 'Montserrat', fontWeight: 600, fontSize: 12,
+        letterSpacing: 0.8, color: '#fff',
+      }}>
+        <span style={{ paddingRight: 60 }}>{msg}</span>
+        <span style={{ paddingRight: 60 }}>{msg}</span>
+      </div>
+    </div>
+  );
+}
+
+// ══════════════════════════════════════════════════
+// HERO
+// ══════════════════════════════════════════════════
+function Hero({ tweaks }) {
+  return (
+    <section id="home" style={{ position: 'relative', height: '100vh', minHeight: 600, overflow: 'hidden' }}>
+      {/* BG photo */}
+      <div style={{
+        position: 'absolute', inset: 0,
+        backgroundImage: 'url(https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=1800&auto=format&fit=crop)',
+        backgroundSize: 'cover', backgroundPosition: 'center 30%',
+      }} />
+      {/* Overlay gradient */}
+      <div style={{
+        position: 'absolute', inset: 0,
+        background: 'linear-gradient(120deg, rgba(13,27,42,0.88) 45%, rgba(13,27,42,0.35) 100%)',
+      }} />
+      {/* Animated wave circles */}
+      {[1,2,3].map(i => (
+        <div key={i} style={{
+          position: 'absolute', right: `${8 + i * 6}%`, bottom: `${10 + i * 5}%`,
+          width: i * 180, height: i * 180, borderRadius: '50%',
+          border: `2px solid rgba(247,148,29,${0.15 - i * 0.03})`,
+          animation: `waveFloat ${3 + i}s ease-in-out infinite`,
+          animationDelay: `${i * 0.4}s`,
+        }} />
+      ))}
+
+      {/* Hero image — right panel */}
+      <div style={{ position: 'absolute', right: 0, top: 0, bottom: 0, width: '55%' }}>
+        <div style={{
+          width: '100%', height: '100%',
+          backgroundImage: 'url(https://images.unsplash.com/photo-1548199973-03cce0bbc87b?w=1200&auto=format&fit=crop)',
+          backgroundSize: 'cover', backgroundPosition: 'center',
+          clipPath: 'polygon(15% 0, 100% 0, 100% 100%, 0% 100%)',
+        }} />
+      </div>
+
+      {/* Content */}
+      <div style={{
+        position: 'relative', zIndex: 2, height: '100%', display: 'flex', flexDirection: 'column',
+        justifyContent: 'center', paddingLeft: 'clamp(32px, 8vw, 120px)', maxWidth: 620,
+        animation: 'fadeUp 0.9s ease forwards',
+      }}>
+        <Badge>Bay Dogs • Maryland</Badge>
+        <h1 style={{
+          fontFamily: HEADING_FONTS[tweaks.fontStyle] || HEADING_FONTS.montserrat, fontWeight: 900, fontSize: 'clamp(42px, 6vw, 76px)',
+          lineHeight: 1.05, color: '#fff', marginTop: 20, marginBottom: 20,
+          textWrap: 'pretty',
+        }}>
+          Relationship<br/>coaching for<br/><span style={{ color: tweaks.accentColor }}>you & your dog.</span>
+        </h1>
+        <p style={{
+          fontFamily: 'Inter', fontWeight: 300, fontSize: 18, lineHeight: 1.7,
+          color: 'rgba(255,255,255,0.75)', maxWidth: 420, marginBottom: 36,
+        }}>
+          Strengthen your bond. Communicate clearly.<br/>Watch your dog thrive.
+        </p>
+        <div style={{ display: 'flex', gap: 16, flexWrap: 'wrap' }}>
+          <button onClick={() => document.getElementById('services').scrollIntoView({ behavior: 'smooth' })} style={{
+            padding: '16px 36px', background: tweaks.accentColor, color: '#fff',
+            border: 'none', borderRadius: tweaks.buttonRadius, fontFamily: 'Montserrat', fontWeight: 700,
+            fontSize: 14, letterSpacing: 1.2, textTransform: 'uppercase', cursor: 'pointer',
+            transition: 'transform 0.2s, background 0.2s',
+          }}
+            onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.background = C.orangeDark; }}
+            onMouseLeave={e => { e.currentTarget.style.transform = ''; e.currentTarget.style.background = tweaks.accentColor; }}
+          >View Services</button>
+          <button onClick={() => document.getElementById('contact').scrollIntoView({ behavior: 'smooth' })} style={{
+            padding: '16px 36px', background: 'transparent', color: '#fff',
+            border: '2px solid rgba(255,255,255,0.4)', borderRadius: tweaks.buttonRadius, fontFamily: 'Montserrat',
+            fontWeight: 700, fontSize: 14, letterSpacing: 1.2, textTransform: 'uppercase', cursor: 'pointer',
+            transition: 'border-color 0.2s, transform 0.2s',
+          }}
+            onMouseEnter={e => { e.currentTarget.style.borderColor = tweaks.accentColor; e.currentTarget.style.transform = 'translateY(-2px)'; }}
+            onMouseLeave={e => { e.currentTarget.style.borderColor = 'rgba(255,255,255,0.4)'; e.currentTarget.style.transform = ''; }}
+          >Free Consultation</button>
+        </div>
+
+        {/* Stats row */}
+        {tweaks.statsVisible !== false && <div style={{ display: 'flex', gap: 40, marginTop: 52 }}>
+          {[['15+', 'Years Experience'], ['1,000+', 'Dogs Trained'], ['100%', 'Owner Commitment']].map(([num, label]) => (
+            <div key={num}>
+              <div style={{ fontFamily: 'Montserrat', fontWeight: 800, fontSize: 28, color: tweaks.accentColor }}>{num}</div>
+              <div style={{ fontFamily: 'Inter', fontSize: 12, color: 'rgba(255,255,255,0.55)', letterSpacing: 0.5 }}>{label}</div>
+            </div>
+          ))}
+        </div>}
+      </div>
+
+      {/* Scroll indicator */}
+      <div style={{
+        position: 'absolute', bottom: 32, left: '50%', transform: 'translateX(-50%)',
+        display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 8,
+        animation: 'fadeIn 1.5s ease 1s both',
+      }}>
+        <span style={{ fontFamily: 'Montserrat', fontSize: 10, letterSpacing: 2, color: 'rgba(255,255,255,0.4)', textTransform: 'uppercase' }}>Scroll</span>
+        <div style={{
+          width: 24, height: 38, border: '2px solid rgba(255,255,255,0.3)', borderRadius: 12,
+          display: 'flex', justifyContent: 'center', paddingTop: 6,
+        }}>
+          <div style={{
+            width: 4, height: 8, background: tweaks.accentColor, borderRadius: 2,
+            animation: 'fadeUp 1.2s ease infinite',
+          }} />
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ══════════════════════════════════════════════════
+// ABOUT
+// ══════════════════════════════════════════════════
+function About({ tweaks }) {
+  const pillars = [
+    { icon: '🤝', title: 'Strong Relationship', desc: 'Built on trust and mutual respect between you and your dog.' },
+    { icon: '💬', title: 'Clear Communication', desc: 'Learn to speak your dog\'s language and be understood.' },
+    { icon: '🎯', title: 'Owner Commitment', desc: 'Long-term success depends on you — we coach both of you.' },
+    { icon: '🎉', title: 'Actually Fun', desc: 'Training should be enjoyable — for you and your pup.' },
+  ];
+
+  return (
+    <section id="about" style={{ background: ABOUT_BGS[tweaks.aboutBg] || C.offWhite, padding: '100px 0' }}>
+      <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 40px' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 80, alignItems: 'center' }}>
+          {/* Left: text */}
+          <div className="reveal-left">
+            <SectionLabel>About Bay Dogs</SectionLabel>
+            <h2 style={{ fontFamily: HEADING_FONTS[tweaks.fontStyle] || HEADING_FONTS.montserrat, fontWeight: 800, fontSize: 'clamp(32px,4vw,52px)', lineHeight: 1.1, color: tweaks.aboutBg === 'navy' ? '#fff' : C.navy, marginBottom: 24 }}>
+              A dog training experience<br/><span style={{ color: tweaks.accentColor }}>like no other.</span>
+            </h2>
+            <p style={{ fontSize: 16, lineHeight: 1.8, color: '#444', marginBottom: 20 }}>
+              Training dogs is easy. <em>Maintaining the results</em> is the tricky part. Long-term success boils down to one important factor: <strong>YOU!</strong>
+            </p>
+            <p style={{ fontSize: 16, lineHeight: 1.8, color: '#444', marginBottom: 32 }}>
+              At Bay Dogs, we focus on the core fundamentals of owning a well-behaved dog. Once you and your dog are on the same page, you'll be able to transform their behavior with ease — and enjoy life with your dog to the fullest.
+            </p>
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: 10 }}>
+              {['Puppy Training','House Training','Obedience','Behavior Modification','Separation Anxiety','Leash Reactivity','Senior Dog Training'].map(s => (
+                <Badge key={s}>{s}</Badge>
+              ))}
+            </div>
+          </div>
+
+          {/* Right: image + pillars */}
+          <div className="reveal-right">
+            <div style={{ position: 'relative', marginBottom: 32 }}>
+              <img src="https://images.unsplash.com/photo-1543466835-00a7907e9de1?w=700&auto=format&fit=crop" alt="Happy dog" style={{ width: '100%', height: 340, objectFit: 'cover', borderRadius: 20, display: 'block' }} />
+              <div style={{
+                position: 'absolute', bottom: -20, right: -20, background: tweaks.accentColor,
+                color: '#fff', borderRadius: 16, padding: '20px 24px', fontFamily: 'Montserrat',
+                fontWeight: 800, fontSize: 22, lineHeight: 1.2, boxShadow: '0 8px 32px rgba(247,148,29,0.4)',
+              }}>
+                10+<br/><span style={{ fontSize: 11, fontWeight: 600, letterSpacing: 1 }}>YEARS EXP.</span>
+              </div>
+            </div>
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
+              {pillars.map(p => (
+                <div key={p.title} style={{
+                  background: '#fff', borderRadius: 14, padding: '20px',
+                  boxShadow: '0 2px 16px rgba(0,0,0,0.06)',
+                  borderTop: `3px solid ${tweaks.accentColor}`,
+                  transition: 'transform 0.2s',
+                }}
+                  onMouseEnter={e => e.currentTarget.style.transform = 'translateY(-3px)'}
+                  onMouseLeave={e => e.currentTarget.style.transform = ''}
+                >
+                  <div style={{ fontSize: 24, marginBottom: 8 }}>{p.icon}</div>
+                  <div style={{ fontFamily: 'Montserrat', fontWeight: 700, fontSize: 14, color: C.navy, marginBottom: 6 }}>{p.title}</div>
+                  <div style={{ fontSize: 13, color: '#666', lineHeight: 1.5 }}>{p.desc}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ══════════════════════════════════════════════════
+// MEET THE TRAINER
+// ══════════════════════════════════════════════════
+function Trainer({ tweaks }) {
+  const creds = [
+    'IACP Member', 'AKC CGC Evaluator', 'Anne Arundel CC Instructor', 'Pet Therapy Training', 'Canine Body Language'
+  ];
+
+  return (
+    <section id="trainer" style={{ background: C.navy, padding: '100px 0', position: 'relative', overflow: 'hidden' }}>
+      {/* BG decoration */}
+      <div style={{
+        position: 'absolute', right: -120, top: -120, width: 500, height: 500, borderRadius: '50%',
+        background: `radial-gradient(circle, rgba(247,148,29,0.07) 0%, transparent 70%)`,
+        pointerEvents: 'none',
+      }} />
+
+      <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 40px' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 80, alignItems: 'center' }}>
+          {/* Image */}
+          <div className="reveal-left" style={{ position: 'relative' }}>
+            <div style={{ position: 'relative' }}>
+              <img src="https://images.unsplash.com/photo-1601758124510-52d02ddb7cbd?w=800&auto=format&fit=crop&q=80" alt="Trainer with dog" style={{ width: '100%', height: 480, objectFit: 'cover', objectPosition: 'top', borderRadius: 24, display: 'block' }} />
+              {/* Orange accent frame */}
+              <div style={{
+                position: 'absolute', top: -16, left: -16, right: 40, bottom: 40,
+                borderRadius: 28, border: `2px solid ${tweaks.accentColor}`,
+                zIndex: -1, opacity: 0.5,
+              }} />
+            </div>
+          </div>
+
+          {/* Text */}
+          <div className="reveal-right">
+            <SectionLabel>Meet the Trainer</SectionLabel>
+            <h2 style={{ fontFamily: HEADING_FONTS[tweaks.fontStyle] || HEADING_FONTS.montserrat, fontWeight: 800, fontSize: 'clamp(28px,3.5vw,46px)', color: '#fff', marginBottom: 8, lineHeight: 1.15 }}>
+              Lauren Dobelbower
+            </h2>
+            <p style={{ fontFamily: 'Montserrat', fontWeight: 500, fontSize: 15, color: tweaks.accentColor, marginBottom: 28, letterSpacing: 0.5 }}>
+              Owner & Trainer, Bay Dogs LLC
+            </p>
+            <p style={{ fontSize: 15, lineHeight: 1.85, color: 'rgba(255,255,255,0.72)', marginBottom: 20 }}>
+              Lauren is the owner and trainer of Bay Dogs, LLC. With <strong style={{ color: '#fff' }}>over 15 years of experience</strong> in the dog training industry, she has successfully trained thousands of dogs — and their owners — while addressing a wide array of behavioral issues.
+            </p>
+            <p style={{ fontSize: 15, lineHeight: 1.85, color: 'rgba(255,255,255,0.72)', marginBottom: 20 }}>
+              There is one key factor to a dog's success at the heart of every case: <strong style={{ color: tweaks.accentColor }}>owner commitment.</strong> By connecting with clients on a deeper level, Lauren can analyze their goals and customize an effective training plan that fits their lifestyle.
+            </p>
+            <p style={{ fontSize: 15, lineHeight: 1.85, color: 'rgba(255,255,255,0.55)', marginBottom: 32 }}>
+              Outside of training, Lauren enjoys frequenting local pet stores and coffee shops with her mixed-breed rescue dog, Gizmo. She loves wildlife and astrophotography, and hiking with her husband.
+            </p>
+
+            {/* Credentials */}
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: 10 }}>
+              {creds.map(c => (
+                <span key={c} style={{
+                  padding: '7px 16px', border: `1.5px solid rgba(247,148,29,0.4)`,
+                  borderRadius: 99, fontFamily: 'Montserrat', fontWeight: 600,
+                  fontSize: 11, color: tweaks.accentColor, letterSpacing: 0.8,
+                }}>{c}</span>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ══════════════════════════════════════════════════
+// SERVICES
+// ══════════════════════════════════════════════════
+function Services({ tweaks }) {
+  const [hovered, setHovered] = useState(null);
+  const services = [
+    {
+      name: 'Core Fundamentals Program',
+      price: '$799',
+      priceLabel: 'starting from',
+      tag: 'Most Popular',
+      accent: true,
+      desc: 'Everything you need to begin transforming your relationship with your puppy or dog. Covers leadership, clear communication, boundary-setting, and motivating your dog through fun, engaging activities.',
+      includes: ['Leadership & relationship-building','Boundary setting','Clear communication techniques','Fun, engaging training activities','Perfect for puppies & dogs without major behavioral issues'],
+    },
+    {
+      name: 'Core Fundamentals + Behavior Modification',
+      price: '$949',
+      priceLabel: 'starting from',
+      tag: 'Comprehensive',
+      accent: false,
+      desc: 'Everything in Core Fundamentals, plus specialized techniques addressing fear, anxiety, anti-social or reactive behavior toward other dogs or people.',
+      includes: ['All Core Fundamentals content','Specialized behavioral techniques','Fear & anxiety management','Leash reactivity work','Anti-social behavior correction'],
+    },
+    {
+      name: 'Single Lessons',
+      price: '$175',
+      priceLabel: 'per hour',
+      tag: 'Returning Clients',
+      accent: false,
+      desc: 'Fine-tune your dog\'s skills, brush up on your training, or teach your dog something new and fun. Available exclusively to clients who have completed a Bay Dogs training program.',
+      includes: ['Previous Bay Dogs clients only','Fine-tune existing skills','Learn new tricks or skills','Refresher sessions','Flexible scheduling'],
+    },
+  ];
+
+  return (
+    <section id="services" style={{ background: C.warm, padding: '100px 0' }}>
+      <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 40px' }}>
+        <div className="reveal" style={{ textAlign: 'center', marginBottom: 64 }}>
+          <SectionLabel>What We Offer</SectionLabel>
+          <h2 style={{ fontFamily: HEADING_FONTS[tweaks.fontStyle] || HEADING_FONTS.montserrat, fontWeight: 800, fontSize: 'clamp(32px,4vw,52px)', color: C.navy, lineHeight: 1.1 }}>
+            Private Training Packages
+          </h2>
+          <p style={{ fontSize: 16, color: '#666', marginTop: 16, maxWidth: 480, margin: '16px auto 0' }}>
+            At-home training options tailored to you and your dog's unique needs.
+          </p>
+        </div>
+
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 28, alignItems: 'start' }}>
+          {services.map((s, i) => (
+            <div key={s.name} className="reveal"
+              style={{ transitionDelay: `${i * 0.12}s` }}
+              onMouseEnter={() => setHovered(i)}
+              onMouseLeave={() => setHovered(null)}
+            >
+              <div style={{
+                background: s.accent ? C.navy : '#fff',
+                borderRadius: 20, overflow: 'hidden',
+                boxShadow: hovered === i ? '0 20px 60px rgba(0,0,0,0.15)' : '0 4px 24px rgba(0,0,0,0.07)',
+                transform: hovered === i ? 'translateY(-8px)' : 'translateY(0)',
+                transition: 'all 0.35s ease',
+                border: s.accent ? `2px solid ${tweaks.accentColor}` : '2px solid transparent',
+              }}>
+                {/* Top bar */}
+                <div style={{ background: tweaks.accentColor, padding: '10px 24px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                  <span style={{ fontFamily: 'Montserrat', fontWeight: 700, fontSize: 11, color: '#fff', letterSpacing: 1.5, textTransform: 'uppercase' }}>{s.tag}</span>
+                  <div style={{ background: 'rgba(255,255,255,0.25)', borderRadius: 6, padding: '3px 10px', fontFamily: 'Montserrat', fontWeight: 800, fontSize: 16, color: '#fff' }}>
+                    {s.price}<span style={{ fontSize: 10, fontWeight: 600 }}> / {s.priceLabel}</span>
+                  </div>
+                </div>
+
+                <div style={{ padding: '28px 28px 32px' }}>
+                  <h3 style={{ fontFamily: 'Montserrat', fontWeight: 800, fontSize: 18, lineHeight: 1.25, color: s.accent ? '#fff' : C.navy, marginBottom: 16 }}>{s.name}</h3>
+                  <p style={{ fontSize: 14, lineHeight: 1.75, color: s.accent ? 'rgba(255,255,255,0.65)' : '#555', marginBottom: 24 }}>{s.desc}</p>
+                  <div style={{ borderTop: `1px solid ${s.accent ? 'rgba(255,255,255,0.12)' : '#eee'}`, paddingTop: 20 }}>
+                    {s.includes.map(item => (
+                      <div key={item} style={{ display: 'flex', gap: 10, alignItems: 'flex-start', marginBottom: 10 }}>
+                        <div style={{ width: 18, height: 18, borderRadius: '50%', background: tweaks.accentColor, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, marginTop: 1 }}>
+                          <svg width="10" height="8" viewBox="0 0 10 8"><path d="M1 4l3 3 5-6" stroke="#fff" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" fill="none"/></svg>
+                        </div>
+                        <span style={{ fontSize: 13, color: s.accent ? 'rgba(255,255,255,0.7)' : '#555', lineHeight: 1.5 }}>{item}</span>
+                      </div>
+                    ))}
+                  </div>
+                  <button onClick={() => document.getElementById('contact').scrollIntoView({ behavior: 'smooth' })} style={{
+                    marginTop: 24, width: '100%', padding: '14px', background: s.accent ? tweaks.accentColor : C.navy,
+                    color: '#fff', border: 'none', borderRadius: tweaks.buttonRadius, fontFamily: 'Montserrat',
+                    fontWeight: 700, fontSize: 13, letterSpacing: 1, textTransform: 'uppercase', cursor: 'pointer',
+                    transition: 'opacity 0.2s',
+                  }}
+                    onMouseEnter={e => e.currentTarget.style.opacity = '0.85'}
+                    onMouseLeave={e => e.currentTarget.style.opacity = '1'}
+                  >Get Started →</button>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ══════════════════════════════════════════════════
+// TESTIMONIALS
+// ══════════════════════════════════════════════════
+function Testimonials({ tweaks }) {
+  const [active, setActive] = useState(0);
+
+  const testimonials = [
+    {
+      dog: 'Penny',
+      img: 'https://images.unsplash.com/photo-1589941013453-ec89f33b5e95?w=400&auto=format&fit=crop',
+      breed: 'German Shepherd Puppy',
+      owner: 'Felicity',
+      quote: 'You are a miracle worker! We went from wrestling and being scratched to being able to quickly take control of the situation when Penny is feeling out of control and teach Penny how to calm herself. It has been a night and day difference.',
+      detail: 'Penny was already a handful at 3 months old and was quickly getting out of hand as she grew to over 60 lbs by 6 months. We even got to take Penny to her first dog park, her first restaurant — and she behaved calmly the entire meal.',
+    },
+    {
+      dog: 'Koda',
+      img: 'https://images.unsplash.com/photo-1558788353-f76d92427f16?w=400&auto=format&fit=crop',
+      breed: 'Mixed Breed, Age 3',
+      owner: 'The Johnson Family',
+      quote: 'She taught US how to support, reinforce, and correct his behaviors by providing us with the tools we needed to set him up for success. He is continuing to improve the more we practice what Lauren has taught us.',
+      detail: 'Koda used to be difficult to take on walks — impossible if I was pushing the stroller. Now I look forward to our morning walks every day as he stays right next to me and I don\'t have to worry about him taking off.',
+    },
+  ];
+
+  const t = testimonials[active];
+
+  return (
+    <section id="testimonials" style={{ background: C.navy, padding: '100px 0', position: 'relative', overflow: 'hidden' }}>
+      <div style={{
+        position: 'absolute', left: -100, bottom: -100, width: 400, height: 400, borderRadius: '50%',
+        background: `radial-gradient(circle, rgba(247,148,29,0.06) 0%, transparent 70%)`,
+      }} />
+
+      <div style={{ maxWidth: 1100, margin: '0 auto', padding: '0 40px' }}>
+        <div className="reveal" style={{ textAlign: 'center', marginBottom: 60 }}>
+          <SectionLabel>Happy Clients</SectionLabel>
+          <h2 style={{ fontFamily: HEADING_FONTS[tweaks.fontStyle] || HEADING_FONTS.montserrat, fontWeight: 800, fontSize: 'clamp(32px,4vw,52px)', color: '#fff', lineHeight: 1.1 }}>
+            What families are saying
+          </h2>
+        </div>
+
+        <div className="reveal" style={{
+          background: 'rgba(255,255,255,0.04)', borderRadius: 24, padding: '56px 64px',
+          border: '1px solid rgba(255,255,255,0.08)',
+          display: 'grid', gridTemplateColumns: '1fr auto', gap: 48, alignItems: 'center',
+        }}>
+          <div>
+            {/* Big quote mark */}
+            <div style={{ fontFamily: 'Georgia, serif', fontSize: 96, lineHeight: 0.8, color: tweaks.accentColor, opacity: 0.3, marginBottom: 16 }}>"</div>
+            <blockquote style={{
+              fontFamily: 'Montserrat', fontWeight: 600, fontSize: 'clamp(18px,2.2vw,26px)',
+              lineHeight: 1.55, color: '#fff', marginBottom: 24,
+            }}>
+              {t.quote}
+            </blockquote>
+            <p style={{ fontSize: 14, lineHeight: 1.8, color: 'rgba(255,255,255,0.5)', marginBottom: 32, maxWidth: 560 }}>
+              {t.detail}
+            </p>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
+              <div style={{
+                width: 48, height: 48, borderRadius: '50%', background: tweaks.accentColor,
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                fontFamily: 'Montserrat', fontWeight: 800, fontSize: 20, color: '#fff',
+              }}>{t.dog[0]}</div>
+              <div>
+                <div style={{ fontFamily: 'Montserrat', fontWeight: 700, fontSize: 16, color: tweaks.accentColor }}>"{t.dog}"</div>
+                <div style={{ fontSize: 13, color: 'rgba(255,255,255,0.45)' }}>{t.breed} · Owner: {t.owner}</div>
+              </div>
+            </div>
+          </div>
+
+          {/* Photo placeholder */}
+          <div>
+            <img src={t.img} alt={t.dog} style={{ width: 220, height: 260, objectFit: 'cover', borderRadius: 16, display: 'block', flexShrink: 0 }} />
+          </div>
+        </div>
+
+        {/* Dots */}
+        <div style={{ display: 'flex', justifyContent: 'center', gap: 12, marginTop: 32 }}>
+          {testimonials.map((_, i) => (
+            <button key={i} onClick={() => setActive(i)} style={{
+              width: i === active ? 32 : 10, height: 10, borderRadius: 5,
+              background: i === active ? tweaks.accentColor : 'rgba(255,255,255,0.25)',
+              border: 'none', cursor: 'pointer', transition: 'all 0.3s ease',
+              padding: 0,
+            }} />
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ══════════════════════════════════════════════════
+// CONTACT
+// ══════════════════════════════════════════════════
+function Contact({ tweaks }) {
+  const [form, setForm] = useState({ name: '', email: '', phone: '', dog: '', message: '' });
+  const [sent, setSent] = useState(false);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setSent(true);
+  };
+
+  return (
+    <section id="contact" style={{ background: C.offWhite, padding: '100px 0' }}>
+      <div style={{ maxWidth: 1100, margin: '0 auto', padding: '0 40px' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 80, alignItems: 'start' }}>
+          {/* Left */}
+          <div className="reveal-left">
+            <SectionLabel>Get In Touch</SectionLabel>
+            <h2 style={{ fontFamily: HEADING_FONTS[tweaks.fontStyle] || HEADING_FONTS.montserrat, fontWeight: 800, fontSize: 'clamp(28px,3.5vw,46px)', color: C.navy, lineHeight: 1.15, marginBottom: 20 }}>
+              Ready to start your<br/><span style={{ color: tweaks.accentColor }}>journey together?</span>
+            </h2>
+            <p style={{ fontSize: 16, lineHeight: 1.8, color: '#555', marginBottom: 40 }}>
+              The first step is a free phone consultation. Let's talk about your goals, your dog's challenges, and how Bay Dogs can help.
+            </p>
+
+            {[
+              { icon: '📍', label: 'Location', value: 'Anne Arundel County, Maryland' },
+              { icon: '📱', label: 'Facebook', value: 'facebook.com/BayDogsDogTraining' },
+              { icon: '🎓', label: 'Credentials', value: 'IACP Member · AKC CGC Evaluator' },
+            ].map(item => (
+              <div key={item.label} style={{ display: 'flex', gap: 16, alignItems: 'flex-start', marginBottom: 24 }}>
+                <div style={{
+                  width: 44, height: 44, borderRadius: 12, background: `rgba(247,148,29,0.1)`,
+                  display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 20, flexShrink: 0,
+                }}>{item.icon}</div>
+                <div>
+                  <div style={{ fontFamily: 'Montserrat', fontWeight: 700, fontSize: 12, color: C.navy, letterSpacing: 1, textTransform: 'uppercase', marginBottom: 2 }}>{item.label}</div>
+                  <div style={{ fontSize: 14, color: '#666' }}>{item.value}</div>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Form */}
+          <div className="reveal-right">
+            {sent ? (
+              <div style={{
+                background: '#fff', borderRadius: 20, padding: '60px 40px', textAlign: 'center',
+                boxShadow: '0 4px 40px rgba(0,0,0,0.08)',
+              }}>
+                <div style={{ fontSize: 56, marginBottom: 16 }}>🐾</div>
+                <h3 style={{ fontFamily: 'Montserrat', fontWeight: 800, fontSize: 24, color: C.navy, marginBottom: 12 }}>Message Sent!</h3>
+                <p style={{ fontSize: 15, color: '#666', lineHeight: 1.7 }}>Thanks for reaching out! Lauren will be in touch shortly to schedule your free consultation.</p>
+                <button onClick={() => setSent(false)} style={{ marginTop: 24, padding: '12px 28px', background: tweaks.accentColor, color: '#fff', border: 'none', borderRadius: 8, fontFamily: 'Montserrat', fontWeight: 700, fontSize: 13, cursor: 'pointer' }}>Send Another</button>
+              </div>
+            ) : (
+              <form onSubmit={handleSubmit} style={{ background: '#fff', borderRadius: 20, padding: '44px 40px', boxShadow: '0 4px 40px rgba(0,0,0,0.08)' }}>
+                <div style={{ fontFamily: 'Montserrat', fontWeight: 800, fontSize: 20, color: C.navy, marginBottom: 28 }}>Free Consultation Request</div>
+                {[
+                  { key: 'name', label: "Your Name", type: 'text', placeholder: 'Jane Smith' },
+                  { key: 'email', label: 'Email Address', type: 'email', placeholder: 'jane@email.com' },
+                  { key: 'phone', label: 'Phone Number', type: 'tel', placeholder: '(410) 555-0000' },
+                  { key: 'dog', label: "Dog's Name & Breed", type: 'text', placeholder: 'Max, Golden Retriever' },
+                ].map(field => (
+                  <div key={field.key} style={{ marginBottom: 18 }}>
+                    <label style={{ display: 'block', fontFamily: 'Montserrat', fontWeight: 600, fontSize: 12, color: C.navy, letterSpacing: 0.5, marginBottom: 6 }}>{field.label}</label>
+                    <input
+                      type={field.type} placeholder={field.placeholder}
+                      value={form[field.key]}
+                      onChange={e => setForm(f => ({ ...f, [field.key]: e.target.value }))}
+                      style={{
+                        width: '100%', padding: '12px 16px', borderRadius: 10,
+                        border: '1.5px solid #e0ddd8', fontSize: 14, fontFamily: 'Inter',
+                        outline: 'none', transition: 'border-color 0.2s', background: '#fafafa',
+                      }}
+                      onFocus={e => e.target.style.borderColor = tweaks.accentColor}
+                      onBlur={e => e.target.style.borderColor = '#e0ddd8'}
+                    />
+                  </div>
+                ))}
+                <div style={{ marginBottom: 24 }}>
+                  <label style={{ display: 'block', fontFamily: 'Montserrat', fontWeight: 600, fontSize: 12, color: C.navy, letterSpacing: 0.5, marginBottom: 6 }}>Tell us about your goals</label>
+                  <textarea
+                    placeholder="What would you like to work on with your dog?"
+                    value={form.message}
+                    onChange={e => setForm(f => ({ ...f, message: e.target.value }))}
+                    rows={4}
+                    style={{
+                      width: '100%', padding: '12px 16px', borderRadius: 10,
+                      border: '1.5px solid #e0ddd8', fontSize: 14, fontFamily: 'Inter',
+                      resize: 'vertical', outline: 'none', transition: 'border-color 0.2s',
+                      background: '#fafafa',
+                    }}
+                    onFocus={e => e.target.style.borderColor = tweaks.accentColor}
+                    onBlur={e => e.target.style.borderColor = '#e0ddd8'}
+                  />
+                </div>
+                <button type="submit" style={{
+                  width: '100%', padding: '16px', background: tweaks.accentColor, color: '#fff',
+                  border: 'none', borderRadius: tweaks.buttonRadius, fontFamily: 'Montserrat', fontWeight: 700,
+                  fontSize: 14, letterSpacing: 1.2, textTransform: 'uppercase', cursor: 'pointer',
+                  transition: 'background 0.2s',
+                }}
+                  onMouseEnter={e => e.currentTarget.style.background = C.orangeDark}
+                  onMouseLeave={e => e.currentTarget.style.background = tweaks.accentColor}
+                >Request Free Consultation →</button>
+              </form>
+            )}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ══════════════════════════════════════════════════
+// FOOTER
+// ══════════════════════════════════════════════════
+function Footer({ tweaks }) {
+  return (
+    <footer style={{ background: '#060f18', padding: '40px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 16 }}>
+      <BayDogsLogo size={30} />
+      <div style={{ fontFamily: 'Inter', fontSize: 13, color: 'rgba(255,255,255,0.35)' }}>
+        © 2025 Bay Dogs Dog Training · Anne Arundel County, MD
+      </div>
+      <div style={{ display: 'flex', gap: 16 }}>
+        <a href="https://www.facebook.com/103004679563468" target="_blank" rel="noreferrer" style={{
+          width: 36, height: 36, borderRadius: '50%', background: 'rgba(255,255,255,0.08)',
+          display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'rgba(255,255,255,0.55)',
+          textDecoration: 'none', fontFamily: 'Montserrat', fontWeight: 800, fontSize: 14, transition: 'all 0.2s',
+        }}
+          onMouseEnter={e => { e.currentTarget.style.background = tweaks.accentColor; e.currentTarget.style.color = '#fff'; }}
+          onMouseLeave={e => { e.currentTarget.style.background = 'rgba(255,255,255,0.08)'; e.currentTarget.style.color = 'rgba(255,255,255,0.55)'; }}
+        >f</a>
+      </div>
+    </footer>
+  );
+}
+
+// ══════════════════════════════════════════════════
+// TWEAKS PANEL
+// ══════════════════════════════════════════════════
+function TweaksPanel({ tweaks, setTweaks, visible }) {
+  if (!visible) return null;
+  const set = (k, v) => {
+    const next = { ...tweaks, [k]: v };
+    setTweaks(next);
+    window.parent.postMessage({ type: '__edit_mode_set_keys', edits: next }, '*');
+  };
+
+  const Row = ({ label, children }) => (
+    <div style={{ marginBottom: 20 }}>
+      <div style={{ fontFamily: 'Montserrat', fontSize: 10, color: 'rgba(255,255,255,0.45)', letterSpacing: 1.5, textTransform: 'uppercase', marginBottom: 8 }}>{label}</div>
+      {children}
+    </div>
+  );
+
+  const Toggle = ({ label, k }) => (
+    <label style={{ display: 'flex', alignItems: 'center', gap: 10, cursor: 'pointer', marginBottom: 10 }}>
+      <div onClick={() => set(k, !tweaks[k])} style={{
+        width: 36, height: 20, borderRadius: 10, background: tweaks[k] ? tweaks.accentColor : 'rgba(255,255,255,0.15)',
+        position: 'relative', transition: 'background 0.25s', flexShrink: 0,
+      }}>
+        <div style={{
+          position: 'absolute', top: 3, left: tweaks[k] ? 18 : 3, width: 14, height: 14,
+          borderRadius: '50%', background: '#fff', transition: 'left 0.25s',
+        }} />
+      </div>
+      <span style={{ fontFamily: 'Montserrat', fontSize: 12, color: 'rgba(255,255,255,0.75)', fontWeight: 500 }}>{label}</span>
+    </label>
+  );
+
+  return (
+    <div style={{
+      position: 'fixed', bottom: 24, right: 24, zIndex: 9999,
+      background: C.navy, borderRadius: 16, padding: '24px',
+      boxShadow: '0 8px 48px rgba(0,0,0,0.4)', width: 292,
+      border: `1px solid rgba(255,255,255,0.1)`,
+      maxHeight: '80vh', overflowY: 'auto',
+    }}>
+      <div style={{ fontFamily: 'Montserrat', fontWeight: 800, fontSize: 14, color: '#fff', marginBottom: 24, letterSpacing: 0.5 }}>Tweaks</div>
+
+      <Row label="Accent Color">
+        <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
+          {['#f7941d','#e05c1a','#f7c31d','#1d9ff7','#e84393','#22c55e','#a855f7'].map(c => (
+            <div key={c} onClick={() => set('accentColor', c)} style={{
+              width: 28, height: 28, borderRadius: '50%', background: c, cursor: 'pointer',
+              border: tweaks.accentColor === c ? '3px solid #fff' : '3px solid transparent',
+              transition: 'border 0.2s', boxShadow: '0 2px 6px rgba(0,0,0,0.3)',
+            }} />
+          ))}
+        </div>
+      </Row>
+
+      <Row label="Button Shape">
+        <div style={{ display: 'flex', gap: 8 }}>
+          {[{label:'Rounded', v:10},{label:'Pill', v:99},{label:'Sharp', v:2}].map(({label,v}) => (
+            <button key={v} onClick={() => set('buttonRadius', v)} style={{
+              padding: '6px 14px', borderRadius: v, border: `1.5px solid ${tweaks.buttonRadius===v ? tweaks.accentColor : 'rgba(255,255,255,0.2)'}`,
+              background: tweaks.buttonRadius===v ? tweaks.accentColor : 'transparent',
+              color: '#fff', fontFamily: 'Montserrat', fontWeight: 600, fontSize: 11,
+              cursor: 'pointer', transition: 'all 0.2s',
+            }}>{label}</button>
+          ))}
+        </div>
+      </Row>
+
+      <Row label="Heading Font">
+        <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+          {[{label:'Montserrat', v:'montserrat'},{label:'Playfair', v:'playfair'},{label:'Oswald', v:'oswald'}].map(({label,v}) => (
+            <button key={v} onClick={() => set('fontStyle', v)} style={{
+              padding: '6px 14px', borderRadius: 6,
+              border: `1.5px solid ${tweaks.fontStyle===v ? tweaks.accentColor : 'rgba(255,255,255,0.2)'}`,
+              background: tweaks.fontStyle===v ? tweaks.accentColor : 'transparent',
+              color: '#fff', fontFamily: 'Montserrat', fontWeight: 600, fontSize: 11,
+              cursor: 'pointer', transition: 'all 0.2s',
+            }}>{label}</button>
+          ))}
+        </div>
+      </Row>
+
+      <Row label="About Section Background">
+        <div style={{ display: 'flex', gap: 8 }}>
+          {[{label:'Warm White', v:'offwhite'},{label:'Orange', v:'orange'},{label:'Navy', v:'navy'}].map(({label,v}) => (
+            <button key={v} onClick={() => set('aboutBg', v)} style={{
+              padding: '6px 12px', borderRadius: 6,
+              border: `1.5px solid ${tweaks.aboutBg===v ? tweaks.accentColor : 'rgba(255,255,255,0.2)'}`,
+              background: tweaks.aboutBg===v ? tweaks.accentColor : 'transparent',
+              color: '#fff', fontFamily: 'Montserrat', fontWeight: 600, fontSize: 10,
+              cursor: 'pointer', transition: 'all 0.2s',
+            }}>{label}</button>
+          ))}
+        </div>
+      </Row>
+
+      <div style={{ borderTop: '1px solid rgba(255,255,255,0.08)', paddingTop: 16, marginTop: 4 }}>
+        <Toggle label="Show Top Banner" k="showBanner" />
+        <Toggle label="Show Hero Stats" k="statsVisible" />
+      </div>
+    </div>
+  );
+}
+
+// ══════════════════════════════════════════════════
+// APP
+// ══════════════════════════════════════════════════
+function App() {
+  const [tweaks, setTweaks] = useState(TWEAK_DEFAULTS);
+  const [tweaksVisible, setTweaksVisible] = useState(false);
+  useReveal();
+
+  useEffect(() => {
+    window.addEventListener('message', (e) => {
+      if (e.data?.type === '__activate_edit_mode') setTweaksVisible(true);
+      if (e.data?.type === '__deactivate_edit_mode') setTweaksVisible(false);
+    });
+    window.parent.postMessage({ type: '__edit_mode_available' }, '*');
+  }, []);
+
+  return (
+    <>
+      <Banner tweaks={tweaks} />
+      <Navbar tweaks={tweaks} />
+      <Hero tweaks={tweaks} />
+      <About tweaks={tweaks} />
+      <Trainer tweaks={tweaks} />
+      <Services tweaks={tweaks} />
+      <Testimonials tweaks={tweaks} />
+      <Contact tweaks={tweaks} />
+      <Footer tweaks={tweaks} />
+      <TweaksPanel tweaks={tweaks} setTweaks={setTweaks} visible={tweaksVisible} />
+    </>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+</script>
+</body>
+</html>

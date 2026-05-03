@@ -1,0 +1,42 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "public/images/uploads"
+public_folder: "/images/uploads"
+
+collections:
+  - name: "testimonials"
+    label: "Testimonials"
+    folder: "src/content/testimonials"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Client Name", name: "clientName", widget: "string" }
+      - { label: "Dog Name", name: "dogName", widget: "string" }
+      - { label: "Testimonial", name: "body", widget: "text" }
+      - { label: "Photo", name: "photo", widget: "image", required: false }
+      - { label: "Featured on Home Page", name: "featured", widget: "boolean", default: false }
+
+  - name: "services"
+    label: "Services"
+    folder: "src/content/services"
+    create: false
+    fields:
+      - { label: "Service Name", name: "title", widget: "string" }
+      - { label: "Description", name: "description", widget: "text" }
+      - { label: "Starting Price", name: "price", widget: "string" }
+      - { label: "Note", name: "note", widget: "string", required: false }
+      - { label: "Order", name: "order", widget: "number" }
+
+  - name: "settings"
+    label: "Site Settings"
+    files:
+      - name: "general"
+        label: "General"
+        file: "src/content/settings/general.json"
+        fields:
+          - { label: "Phone", name: "phone", widget: "string" }
+          - { label: "Email", name: "email", widget: "string" }
+          - { label: "Tagline", name: "tagline", widget: "string" }
+          - { label: "Facebook URL", name: "facebook", widget: "string" }

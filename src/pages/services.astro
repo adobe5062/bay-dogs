@@ -1,0 +1,88 @@
+---
+import Base from '@layouts/Base.astro';
+import ServiceCard from '@components/ServiceCard.astro';
+
+const services = [
+  {
+    title: 'Core Fundamentals Program',
+    price: 'From $799',
+    description: 'A complete foundation for you and your dog. Covers leadership, boundaries, communication, and motivation. You\'ll learn how to read your dog and how to speak their language — building a relationship based on trust and clarity.',
+    note: 'Great for puppies and dogs without major behavioral issues.',
+  },
+  {
+    title: 'Core Fundamentals + Behavior Modification',
+    price: 'From $949',
+    description: 'Everything in the Core Fundamentals Program, plus specialized techniques for dogs dealing with fear, anxiety, reactivity, or anti-social behavior toward dogs or people. If your dog has struggled with behavioral challenges, this is where to start.',
+  },
+  {
+    title: 'Single Lessons',
+    price: '$175 / hour',
+    description: 'Need to fine-tune a skill, brush up on training, or teach your dog something new? Single sessions are available for clients who have previously completed a Bay Dogs program.',
+    note: 'Available to previous Bay Dogs clients only.',
+  },
+];
+
+const faqs = [
+  {
+    q: 'Where do sessions take place?',
+    a: 'Sessions are held at your home or a location convenient for you in Maryland. Training in your dog\'s real environment leads to better, more lasting results.',
+  },
+  {
+    q: 'How long does a program take?',
+    a: 'The Core Fundamentals Program is typically completed over several weeks, with sessions scheduled at a pace that works for you and your dog.',
+  },
+  {
+    q: 'My dog has serious behavioral issues. Can Lauren help?',
+    a: 'Yes. The Core Fundamentals + Behavior Modification program is specifically designed for dogs with fear, anxiety, reactivity, or aggression. Lauren has extensive experience with challenging cases.',
+  },
+  {
+    q: 'Is there a free consultation?',
+    a: 'Yes — Lauren offers a free initial consultation so you can talk through your dog\'s situation before committing to a program. No pressure.',
+  },
+];
+---
+
+<Base title="Services" description="Dog training programs in Maryland. Core Fundamentals from $799, Behavior Modification from $949.">
+  <section class="bg-cream pt-16 pb-12 px-6 border-b border-tan/20">
+    <div class="max-w-5xl mx-auto">
+      <p class="text-earthy-green font-semibold text-sm uppercase tracking-widest mb-3">Training Programs</p>
+      <h1 class="font-serif text-4xl font-semibold text-charcoal">Services & Pricing</h1>
+    </div>
+  </section>
+
+  <section class="py-20 px-6">
+    <div class="max-w-5xl mx-auto">
+      <div class="grid md:grid-cols-3 gap-6">
+        {services.map((s) => <ServiceCard {...s} />)}
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="bg-white py-20 px-6">
+    <div class="max-w-3xl mx-auto">
+      <div class="text-center mb-12">
+        <p class="text-earthy-green font-semibold text-sm uppercase tracking-widest mb-3">FAQ</p>
+        <h2 class="font-serif text-3xl font-semibold text-charcoal">Common questions.</h2>
+      </div>
+      <div class="space-y-6">
+        {faqs.map(({ q, a }) => (
+          <div class="border-b border-tan/30 pb-6">
+            <h3 class="font-semibold text-charcoal mb-2">{q}</h3>
+            <p class="text-charcoal/70 leading-relaxed">{a}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-earthy-green text-cream py-16 px-6">
+    <div class="max-w-2xl mx-auto text-center">
+      <h2 class="font-serif text-2xl font-semibold mb-4">Not sure which program is right for you?</h2>
+      <p class="text-cream/80 mb-8">Book a free consultation and Lauren will help you figure out the best fit.</p>
+      <a href="/contact" class="bg-cream text-earthy-green font-semibold px-8 py-3 rounded hover:bg-tan transition-colors inline-block">
+        Book Free Consultation
+      </a>
+    </div>
+  </section>
+</Base>

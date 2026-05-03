@@ -48,7 +48,45 @@
 @media (max-width: 768px) {
   .nav-desktop { display: none !important; }
   .nav-mobile  { display: flex !important; }
+
+  /* Hero */
+  .hero-right-panel { display: none !important; }
+  .hero-content {
+    padding-left: 24px !important;
+    padding-right: 24px !important;
+    max-width: 100% !important;
+  }
+  .hero-stats { gap: 20px !important; flex-wrap: wrap !important; }
+
+  /* Grids → single column */
+  .grid-2 { grid-template-columns: 1fr !important; gap: 36px !important; }
+  .grid-3 { grid-template-columns: 1fr !important; gap: 20px !important; }
+  .pillar-grid { gap: 12px !important; }
+
+  /* Trainer accent frame causes overflow on mobile */
+  .trainer-frame { display: none !important; }
+
+  /* Testimonial panel */
+  #testimonial-panel {
+    grid-template-columns: 1fr !important;
+    padding: 32px 24px !important;
+    gap: 0 !important;
+  }
+  #testimonial-panel img { display: none !important; }
+
+  /* Section vertical padding */
+  #about, #trainer, #services, #testimonials, #contact {
+    padding: 60px 0 !important;
+  }
+
+  /* Section inner horizontal padding */
+  #about > div,
+  #trainer > div,
+  #services > div,
+  #testimonials > div,
+  #contact > div { padding-left: 20px !important; padding-right: 20px !important; }
 }
+
 @media (min-width: 769px) {
   .nav-mobile  { display: none !important; }
 }

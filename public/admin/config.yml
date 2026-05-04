@@ -12,10 +12,12 @@ collections:
     create: true
     slug: "{{slug}}"
     fields:
-      - { label: "Client Name", name: "clientName", widget: "string" }
       - { label: "Dog Name", name: "dogName", widget: "string" }
-      - { label: "Testimonial", name: "body", widget: "text" }
-      - { label: "Photo", name: "photo", widget: "image", required: false }
+      - { label: "Dog Breed / Age", name: "dogBreed", widget: "string" }
+      - { label: "Owner Name", name: "clientName", widget: "string" }
+      - { label: "Main Quote", name: "body", widget: "text" }
+      - { label: "Detail / Story", name: "detail", widget: "text", required: false }
+      - { label: "Photo", name: "photo", widget: "string", required: false, hint: "Paste an image URL, or leave blank" }
       - { label: "Featured on Home Page", name: "featured", widget: "boolean", default: false }
 
   - name: "services"
@@ -24,19 +26,34 @@ collections:
     create: false
     fields:
       - { label: "Service Name", name: "title", widget: "string" }
-      - { label: "Description", name: "description", widget: "text" }
-      - { label: "Starting Price", name: "price", widget: "string" }
-      - { label: "Note", name: "note", widget: "string", required: false }
+      - { label: "Badge Label", name: "tag", widget: "string", hint: "e.g. Most Popular, Comprehensive, Returning Clients" }
+      - { label: "Price", name: "price", widget: "string", hint: "e.g. $799" }
+      - { label: "Price Label", name: "priceLabel", widget: "string", hint: "e.g. starting from, per hour" }
+      - { label: "Dark Card Style", name: "accent", widget: "boolean", default: false, hint: "Turn on for the featured/dark card" }
+      - { label: "Description", name: "body", widget: "text" }
+      - { label: "What's Included", name: "includes", widget: "list" }
       - { label: "Order", name: "order", widget: "number" }
 
   - name: "settings"
     label: "Site Settings"
     files:
+      - name: "trainer"
+        label: "Trainer Bio"
+        file: "src/content/settings/trainer.json"
+        fields:
+          - { label: "Name", name: "name", widget: "string" }
+          - { label: "Title", name: "title", widget: "string" }
+          - { label: "Bio Paragraph 1", name: "bio1", widget: "text" }
+          - { label: "Bio Paragraph 2", name: "bio2", widget: "text" }
+          - { label: "Bio Paragraph 3", name: "bio3", widget: "text" }
+          - { label: "Photo URL", name: "photo", widget: "string", required: false }
+          - { label: "Credentials", name: "credentials", widget: "list" }
       - name: "general"
         label: "General"
         file: "src/content/settings/general.json"
         fields:
-          - { label: "Phone", name: "phone", widget: "string" }
-          - { label: "Email", name: "email", widget: "string" }
-          - { label: "Tagline", name: "tagline", widget: "string" }
+          - { label: "Location", name: "location", widget: "string" }
           - { label: "Facebook URL", name: "facebook", widget: "string" }
+          - { label: "Tagline", name: "tagline", widget: "string" }
+          - { label: "Phone", name: "phone", widget: "string", required: false }
+          - { label: "Email", name: "email", widget: "string", required: false }

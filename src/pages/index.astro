@@ -1,52 +1,31 @@
 ---
 import Base from '../layouts/Base.astro';
+import { getCollection } from 'astro:content';
+import general from '../content/settings/general.json';
+import trainerData from '../content/settings/trainer.json';
 
-const services = [
-  {
-    name: 'Core Fundamentals Program',
-    price: '$799',
-    priceLabel: 'starting from',
-    tag: 'Most Popular',
-    accent: true,
-    desc: 'Everything you need to begin transforming your relationship with your puppy or dog. Covers leadership, clear communication, boundary-setting, and motivating your dog through fun, engaging activities.',
-    includes: ['Leadership & relationship-building','Boundary setting','Clear communication techniques','Fun, engaging training activities','Perfect for puppies & dogs without major behavioral issues'],
-  },
-  {
-    name: 'Core Fundamentals + Behavior Modification',
-    price: '$949',
-    priceLabel: 'starting from',
-    tag: 'Comprehensive',
-    accent: false,
-    desc: 'Everything in Core Fundamentals, plus specialized techniques addressing fear, anxiety, anti-social or reactive behavior toward other dogs or people.',
-    includes: ['All Core Fundamentals content','Specialized behavioral techniques','Fear & anxiety management','Leash reactivity work','Anti-social behavior correction'],
-  },
-  {
-    name: 'Single Lessons',
-    price: '$175',
-    priceLabel: 'per hour',
-    tag: 'Returning Clients',
-    accent: false,
-    desc: "Fine-tune your dog's skills, brush up on your training, or teach your dog something new and fun. Available exclusively to clients who have completed a prior training program.",
-    includes: ['Previous clients only','Fine-tune existing skills','Learn new tricks or skills','Refresher sessions','Flexible scheduling'],
-  },
-];
+const serviceEntries = await getCollection('services');
+const services = serviceEntries
+  .sort((a, b) => a.data.order - b.data.order)
+  .map(entry => ({
+    name: entry.data.title,
+    price: entry.data.price,
+    priceLabel: entry.data.priceLabel,
+    tag: entry.data.tag,
+    accent: entry.data.accent,
+    desc: entry.body.trim(),
+    includes: entry.data.includes,
+  }));
 
-const testimonials = [
-  {
-    dog: 'Penny',
-    breed: 'German Shepherd Puppy',
-    owner: 'Felicity',
-    quote: 'You are a miracle worker! We went from wrestling and being scratched to being able to quickly take control of the situation when Penny is feeling out of control and teach Penny how to calm herself. It has been a night and day difference.',
-    detail: 'Penny was already a handful at 3 months old and was quickly getting out of hand as she grew to over 60 lbs by 6 months. We even got to take Penny to her first dog park, her first restaurant — and she behaved calmly the entire meal.',
-  },
-  {
-    dog: 'Koda',
-    breed: 'Mixed Breed, Age 3',
-    owner: 'The Johnson Family',
-    quote: 'She taught US how to support, reinforce, and correct his behaviors by providing us with the tools we needed to set him up for success. He is continuing to improve the more we practice what Lauren has taught us.',
-    detail: "Koda used to be difficult to take on walks — impossible if I was pushing the stroller. Now I look forward to our morning walks every day as he stays right next to me and I don't have to worry about him taking off.",
-  },
-];
+const testimonialEntries = await getCollection('testimonials');
+const testimonials = testimonialEntries.map(entry => ({
+  dog: entry.data.dogName,
+  breed: entry.data.dogBreed,
+  owner: entry.data.clientName,
+  quote: entry.body.trim(),
+  detail: entry.data.detail || '',
+  photo: entry.data.photo || '',
+}));
 
 const pillars = [
   { icon: '🤝', title: 'Strong Relationship', desc: 'Built on trust and mutual respect between you and your dog.' },
@@ -56,7 +35,6 @@ const pillars = [
 ];
 
 const skills = ['Puppy Training','House Training','Obedience','Behavior Modification','Separation Anxiety','Leash Reactivity','Senior Dog Training'];
-const creds = ['IACP Member', 'AKC CGC Evaluator', 'Anne Arundel CC Instructor', 'Pet Therapy Training', 'Canine Body Language'];
 ---
 
 <Base title="Relationship Coaching for You and Your Dog" description="Professional dog training. 15+ years experience. Free consultation.">
@@ -224,7 +202,7 @@ const creds = ['IACP Member', 'AKC CGC Evaluator', 'Anne Arundel CC Instructor',
       <div class="grid-2" style="display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;">
         <div class="reveal-left" style="position:relative;">
           <div style="position:relative;">
-            <img src="https://images.unsplash.com/photo-1601758124510-52d02ddb7cbd?w=800&auto=format&fit=crop&q=80" alt="Trainer with dog" style="width:100%;height:480px;object-fit:cover;object-position:top;border-radius:24px;display:block;" />
+            <img src={trainerData.photo} alt="Trainer with dog" style="width:100%;height:480px;object-fit:cover;object-position:top;border-radius:24px;display:block;" />
             <div class="trainer-frame" style="position:absolute;top:-16px;left:-16px;right:40px;bottom:40px;border-radius:28px;border:2px solid rgba(247,148,29,0.5);z-index:-1;"></div>
           </div>
         </div>
@@ -233,19 +211,13 @@ const creds = ['IACP Member', 'AKC CGC Evaluator', 'Anne Arundel CC Instructor',
             <div style="width:32px;height:3px;background:#f7941d;border-radius:2px;"></div>
             <span style="font-family:Montserrat,sans-serif;font-weight:700;font-size:11px;letter-spacing:2.5px;text-transform:uppercase;color:#f7941d;">Meet the Trainer</span>
           </div>
-          <h2 style="font-family:Montserrat,sans-serif;font-weight:800;font-size:clamp(28px,3.5vw,46px);color:#fff;margin-bottom:8px;line-height:1.15;">[Trainer Name]</h2>
-          <p style="font-family:Montserrat,sans-serif;font-weight:500;font-size:15px;color:#f7941d;margin-bottom:28px;letter-spacing:0.5px;">Owner &amp; Trainer</p>
-          <p style="font-size:15px;line-height:1.85;color:rgba(255,255,255,0.72);margin-bottom:20px;">
-            [Trainer] is the owner and trainer with <strong style="color:#fff;">over 15 years of experience</strong> in the dog training industry, having successfully trained thousands of dogs — and their owners — while addressing a wide array of behavioral issues.
-          </p>
-          <p style="font-size:15px;line-height:1.85;color:rgba(255,255,255,0.72);margin-bottom:20px;">
-            There is one key factor to a dog's success at the heart of every case: <strong style="color:#f7941d;">owner commitment.</strong> By connecting with clients on a deeper level, [Trainer] can analyze their goals and customize an effective training plan that fits their lifestyle.
-          </p>
-          <p style="font-size:15px;line-height:1.85;color:rgba(255,255,255,0.55);margin-bottom:32px;">
-            [Trainer bio details go here.]
-          </p>
+          <h2 style="font-family:Montserrat,sans-serif;font-weight:800;font-size:clamp(28px,3.5vw,46px);color:#fff;margin-bottom:8px;line-height:1.15;">{trainerData.name}</h2>
+          <p style="font-family:Montserrat,sans-serif;font-weight:500;font-size:15px;color:#f7941d;margin-bottom:28px;letter-spacing:0.5px;">{trainerData.title}</p>
+          <p style="font-size:15px;line-height:1.85;color:rgba(255,255,255,0.72);margin-bottom:20px;">{trainerData.bio1}</p>
+          <p style="font-size:15px;line-height:1.85;color:rgba(255,255,255,0.72);margin-bottom:20px;">{trainerData.bio2}</p>
+          <p style="font-size:15px;line-height:1.85;color:rgba(255,255,255,0.55);margin-bottom:32px;">{trainerData.bio3}</p>
           <div style="display:flex;flex-wrap:wrap;gap:10px;">
-            {creds.map((c) => (
+            {trainerData.credentials.map((c) => (
               <span style="padding:7px 16px;border:1.5px solid rgba(247,148,29,0.4);border-radius:99px;font-family:Montserrat,sans-serif;font-weight:600;font-size:11px;color:#f7941d;letter-spacing:0.8px;">{c}</span>
             ))}
           </div>
@@ -333,7 +305,7 @@ const creds = ['IACP Member', 'AKC CGC Evaluator', 'Anne Arundel CC Instructor',
         ))}
         <div>
           {testimonials.map((t, i) => (
-            <img src={`https://images.unsplash.com/photo-${i === 0 ? '1589941013453-ec89f33b5e95' : '1558788353-f76d92427f16'}?w=400&auto=format&fit=crop`} alt={t.dog} class="testimonial-img" data-index={i} style={`width:220px;height:260px;object-fit:cover;border-radius:16px;display:${i > 0 ? 'none' : 'block'};`} />
+            <img src={t.photo} alt={t.dog} class="testimonial-img" data-index={i} style={`width:220px;height:260px;object-fit:cover;border-radius:16px;display:${i > 0 ? 'none' : 'block'};`} />
           ))}
         </div>
       </div>
@@ -363,8 +335,8 @@ const creds = ['IACP Member', 'AKC CGC Evaluator', 'Anne Arundel CC Instructor',
             The first step is a free phone consultation. Let's talk about your goals, your dog's challenges, and how we can help.
           </p>
           {[
-            { icon: '📍', label: 'Location', value: '[Your Location]' },
-            { icon: '📱', label: 'Facebook', value: '[Facebook URL]' },
+            { icon: '📍', label: 'Location', value: general.location },
+            { icon: '📱', label: 'Facebook', value: general.facebook },
             { icon: '🎓', label: 'Credentials', value: 'IACP Member · AKC CGC Evaluator' },
           ].map((item) => (
             <div style="display:flex;gap:16px;align-items:flex-start;margin-bottom:24px;">

@@ -1,0 +1,9 @@
+{
+  "name": "[Trainer Name]",
+  "title": "Owner & Trainer",
+  "bio1": "[Trainer] is the owner and trainer with over 15 years of experience in the dog training industry, having successfully trained thousands of dogs — and their owners — while addressing a wide array of behavioral issues.",
+  "bio2": "There is one key factor to a dog's success at the heart of every case: owner commitment. By connecting with clients on a deeper level, [Trainer] can analyze their goals and customize an effective training plan that fits their lifestyle.",
+  "bio3": "[Trainer bio details go here.]",
+  "photo": "https://images.unsplash.com/photo-1601758124510-52d02ddb7cbd?w=800&auto=format&fit=crop&q=80",
+  "credentials": ["IACP Member", "AKC CGC Evaluator", "Anne Arundel CC Instructor", "Pet Therapy Training", "Canine Body Language"]
+}
